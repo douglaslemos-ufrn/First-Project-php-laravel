@@ -28,8 +28,21 @@ class MusicaController extends Controller
     }
 
     public function delete($id=0){
-        $musica = new Musica();
-        $dados = $musica->find($id);
-        $dados->delete();
+        $dados = Musica::find($id)->delete();                 
+        return redirect()->route('index');
     }
+
+    public function edit($id){
+        $dados = Musica::find($id);   
+        return view('edit',compact('dados', 'id'));
+    }
+
+    public function Atualizar(Request $request, $id){
+        $musica = $request->all();
+        Musica::find($id)->update($musica);
+
+        return redirect()->route('index');
+    }
+
+
 }
